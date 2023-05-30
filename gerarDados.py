@@ -37,7 +37,6 @@ try:
     with pd.ExcelWriter(path_destino, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
         writer.book = openpyxl.load_workbook(path_destino)
         df.to_excel(writer, sheet_name='RELATORIO', index=False)
+        messagebox.showinfo(title='SUCESSO!', message='Dados gerados com sucesso!!')
 except Exception as e:
     messagebox.showerror(title='ERROR', message='Erro ao salvar dados na planilha ' + str(e))
-
-messagebox.showinfo(title='SUCESSO!', message='Dados gerados com sucesso!!')

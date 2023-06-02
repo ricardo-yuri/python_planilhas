@@ -1,4 +1,5 @@
 from tkinter import filedialog, messagebox
+from openpyxl.utils.dataframe import dataframe_to_rows
 
 import openpyxl
 import pandas as pd
@@ -33,10 +34,24 @@ for id in id_a_serem_procurados:
 messagebox.showinfo(title='Geracao de Dados', message='Iniciando processo de gravação dos dados')
 df = pd.concat(dados_filtrados)
 
+workbook = openpyxl.load_workbook(path_destino)
+worksheet = workbook.create_sheet('RELATORIO', index=0)
+
+for row in dataframe_to_rows(df, index=False, header=True):
+    worksheet.append(row)
+
+workbook.save(path_destino)
+
 try:
-    with pd.ExcelWriter(path_destino, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-        writer.book = openpyxl.load_workbook(path_destino)
-        df.to_excel(writer, sheet_name='RELATORIO', index=False)
-        messagebox.showinfo(title='SUCESSO!', message='Dados gerados com sucesso!!')
+    workbook = openpyxl.load_workbook(path_destino)
+
+    worksheet = workbook.create_sheet('RELATORIO', index=0)
+
+    for row in dataframe_to_rows(df, index=False, header=True):
+        worksheet.append(row)
+
+    workbook.save(path_destino)
+    
+    messagebox.showinfo(title='SUCESSO!', message='Dados gerados com sucesso!!')
 except Exception as e:
     messagebox.showerror(title='ERROR', message='Erro ao salvar dados na planilha ' + str(e))

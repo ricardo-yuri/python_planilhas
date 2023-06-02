@@ -34,14 +34,6 @@ for id in id_a_serem_procurados:
 messagebox.showinfo(title='Geracao de Dados', message='Iniciando processo de gravação dos dados')
 df = pd.concat(dados_filtrados)
 
-workbook = openpyxl.load_workbook(path_destino)
-worksheet = workbook.create_sheet('RELATORIO', index=0)
-
-for row in dataframe_to_rows(df, index=False, header=True):
-    worksheet.append(row)
-
-workbook.save(path_destino)
-
 try:
     workbook = openpyxl.load_workbook(path_destino)
 
@@ -51,7 +43,7 @@ try:
         worksheet.append(row)
 
     workbook.save(path_destino)
-    
+
     messagebox.showinfo(title='SUCESSO!', message='Dados gerados com sucesso!!')
 except Exception as e:
     messagebox.showerror(title='ERROR', message='Erro ao salvar dados na planilha ' + str(e))

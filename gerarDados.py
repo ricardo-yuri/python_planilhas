@@ -25,7 +25,7 @@ def cancelar():
 def gerar():
     try:
         df1 = pd.read_excel(path_origem)
-        df2 = pd.read_excel(path_destino, sheet_name='TESTE')
+        df2 = pd.read_excel(path_destino, sheet_name='VENDAS')
     except Exception as e:
         messagebox.showerror(title='ERROR', message='Erro ao ler os arquivos Excel: ' + str(e))
 
@@ -49,7 +49,7 @@ def gerar():
     try:
         workbook = openpyxl.load_workbook(path_destino)
 
-        worksheet = workbook.create_sheet('RELATORIO', index=0)
+        worksheet = workbook.create_sheet('EXTRATO', index=0)
 
         for row in dataframe_to_rows(df, index=False, header=True):
             worksheet.append(row)
@@ -64,6 +64,7 @@ def gerar():
 
 
 janela = tk.Tk()
+janela.title("Gerar de Dados")
 
 btn_origem = tk.Button(janela, text="Selecionar arquivo de origem", command=selecionar_arquivo_origem)
 btn_origem.grid(row=0, column=0)
@@ -78,9 +79,9 @@ lbl_arquivo_destino = tk.Label(janela, text="Arquivo de destino:")
 lbl_arquivo_destino.grid(row=1, column=1)
 
 btn_gerar = tk.Button(janela, text="Gerar", command=gerar)
-btn_gerar.grid(row=2, column=0)
+btn_gerar.grid(row=2, column=1)
 
 btn_cancelar = tk.Button(janela, text="Cancelar", command=cancelar)
-btn_cancelar.grid(row=2, column=1)
+btn_cancelar.grid(row=2, column=0)
 
 janela.mainloop()

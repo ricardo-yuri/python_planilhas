@@ -64,7 +64,7 @@ def gerar():
 
 
 janela = tk.Tk()
-janela.title("Gerar de Dados")
+janela.title("Gerar Dados")
 
 btn_origem = tk.Button(janela, text="Selecionar arquivo de origem", command=selecionar_arquivo_origem)
 btn_origem.grid(row=0, column=0)
